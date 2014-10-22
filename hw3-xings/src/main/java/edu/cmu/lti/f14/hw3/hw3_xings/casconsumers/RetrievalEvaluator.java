@@ -161,10 +161,6 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 		// TODO :: compute the rank of retrieved sentences
 				int i = 0;
 				Iterator<Double> temp = cosine_similarities.iterator();
-//				while(temp.hasNext()){
-//					System.out.println(temp.next());
-//				}
-//				System.out.println("");
 				while(rel!=99){
 					if (rel == 1){
 						double cs = cosine_similarities.get(i);
@@ -253,9 +249,9 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 		double numerator = 0.0;
 		Iterator<Integer> it = rankList.iterator();
 		while(it.hasNext()){
-			numerator = numerator + 1/((double)it.next());
+			numerator = numerator + 1.0/it.next();
 		}
-		metric_mrr = numerator/((double)rankList.size());
+		metric_mrr = numerator/rankList.size();
 		
 		return metric_mrr;
 	}
