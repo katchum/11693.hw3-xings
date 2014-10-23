@@ -1,6 +1,10 @@
 package edu.cmu.lti.f14.hw3.hw3_xings.annotators;
 
+import org.apache.uima.UimaContext;
+
+import java.io.File;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -10,14 +14,14 @@ import org.apache.uima.jcas.cas.FSList;
 import org.apache.uima.jcas.cas.IntegerArray;
 import org.apache.uima.jcas.cas.StringArray;
 import org.apache.uima.jcas.tcas.Annotation;
-import edu.cmu.lti.f14.hw3.hw3_xings.utils.Utils;
 
+import edu.cmu.lti.f14.hw3.hw3_xings.utils.*;
 import edu.cmu.lti.f14.hw3.hw3_xings.typesystems.Document;
 import edu.cmu.lti.f14.hw3.hw3_xings.typesystems.Token;
 
 
-public class DocumentVectorAnnotator extends JCasAnnotator_ImplBase {
-
+public class DocumentVectorAnnotator extends JCasAnnotator_ImplBase {	
+	
 	@Override
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
 
@@ -54,7 +58,6 @@ public class DocumentVectorAnnotator extends JCasAnnotator_ImplBase {
 	private void createTermFreqVector(JCas jcas, Document doc) {
 
 		String docText = doc.getText();
-		
 		//TO DO: construct a vector of tokens and update the tokenList in CAS
     //TO DO: use tokenize0 from above 
 		List<String> tokenNames = tokenize0(docText);
@@ -76,10 +79,8 @@ public class DocumentVectorAnnotator extends JCasAnnotator_ImplBase {
 		//add the tokens to the jcas
 		FSList tokenList = Utils.fromCollectionToFSList(jcas, new ArrayList<Token>(tokenFreq.values()));
 		doc.setTokenList(tokenList);
-//		Iterator<String> keyit = tokenFreq.keySet().iterator();
-//		while(keyit.hasNext()){
-//			tokenFreq.get(keyit.next()).addToIndexes();
-//		}
 	}
-
+	
 }
+
+

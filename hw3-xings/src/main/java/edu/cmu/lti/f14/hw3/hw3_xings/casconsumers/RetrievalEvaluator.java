@@ -237,6 +237,58 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 		return cosine_similarity;
 	}
 
+	  private double computeDiceCoefficient(Map<String, Integer> queryVector,
+	          Map<String, Integer> docVector) {
+	    double nominator = 0;
+	    double queryLength = 0;
+	    double docLength = 0;
+
+	    Iterator<String> it = queryVector.keySet().iterator();
+	    while (it.hasNext()) {
+	      String key = it.next();
+	      if (docVector.containsKey(key)) {
+	        nominator++;
+	      }
+	      queryLength++;
+	    }
+
+	    it = docVector.keySet().iterator();
+	    while (it.hasNext()) {
+	      it.next();
+	      docLength++;
+	    }
+
+	    nominator = 2 * nominator / (docLength + queryLength);
+
+	    return nominator;
+	  }
+	
+	  private double computeJaccardCoefficient(Map<String, Integer> queryVector,
+	          Map<String, Integer> docVector) {
+	    double nominator = 0.0;
+	    double queryLength = 0.0;
+	    double docLength = 0.0;
+
+	    Iterator<String> it = queryVector.keySet().iterator();
+	    while (it.hasNext()) {
+	      String key = it.next();
+	      if (docVector.containsKey(key)) {
+	        nominator++;
+	      }
+	      queryLength++;
+	    }
+
+	    it = docVector.keySet().iterator();
+	    while (it.hasNext()) {
+	    	it.next();
+	    	docLength++;
+	    }
+	    double jaccardCoefficient;
+	    jaccardCoefficient = nominator / (queryLength + docLength - nominator);
+	    return jaccardCoefficient;
+	  }
+	
+	
 	/**
 	 * 
 	 * @return mrr
